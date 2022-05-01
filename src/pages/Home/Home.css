@@ -1,0 +1,23 @@
+.home-body {
+  height: auto;
+}
+
+.body-img {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 700px;
+  filter: brightness(0.8);
+}
+
+.body-sum {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 40%;
+  font-family: fantasy;
+  filter: brightness(1.5);
+  color: black;
+  text-shadow: -1px 0 rgb(255, 255, 255), 0 1px rgb(255, 255, 255),
+    1px 0 rgb(255, 255, 255), 0 -1px rgb(255, 255, 255);
+}
