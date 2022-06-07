@@ -1,8 +1,8 @@
 .footer {
   display: flex;
   justify-content: space-evenly;
-  background-color: rgb(19, 181, 230);
-  font-family: fantasy;
+  background-color: white;
+  font-family: sans-serif;
 }
 
 .footer-content {

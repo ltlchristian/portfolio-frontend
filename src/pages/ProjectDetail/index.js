@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Badge, Button, Card} from 'react-bootstrap';
+import parse from 'html-react-parser';
 import services from "../../services";
 import "./ProjectDetail.css";
 
@@ -9,22 +10,13 @@ export default function ProjectDetail() {
       techno: []
     });
     const [likes, setLikes] = useState(0);
+    const [content, setContent] = useState("");
+    const navigate = useNavigate();
 
     let { idProject } = useParams();
 
     function isHttpImage(image) {
       return image && image.startsWith('http');
-    }
-
-    const addLike = (idProject) => {
-      console.log("==> addLike", idProject);
-      services
-        .addLikes(idProject)
-        .then((response) => {
-          console.log(response);
-          setLikes(response.likes);
-        })
-        .catch(console.log);
     }
 
     useEffect(() => {
@@ -34,6 +26,7 @@ export default function ProjectDetail() {
           console.log(response);
           setProject(response);
           setLikes(response.likes);
+          setContent(response.content);
         })
         .catch(console.log);
     }, []);
@@ -46,22 +39,20 @@ export default function ProjectDetail() {
             <Card.Title>
               { project.title }
             </Card.Title>
-            <p>
+            <div>
               {project.techno.map((techno) => (
-                <span key={techno._id} className="badge rounded-pill bg-info text-dark">{techno.label}</span>
+                <span key={techno._id} className="badge rounded-pill bg-info text-dark m-1">{techno.label}</span>
               ))}
-            </p>
-            <h5>Likes: <Badge bg="secondary">{ likes }</Badge></h5>
-            <Button onClick={() => addLike(project._id)} variant="success">LIKE</Button>
+            </div>
             <Card.Text>
               { project.summary }
             </Card.Text>
-            <p>
+            <div>
               <a href={project.lien_github} target="_blank"><i className="fa-brands fa-github-square github"></i></a>
-            </p>
-            <Card.Text>
-              { project.content }
-            </Card.Text>
+            </div>
+            {parse(content)}
+            <hr/>
+            <Button variant="outline-secondary" onClick={() => navigate("/project")}>Retour</Button>
           </Card.Body>
         </Card>
     </div>

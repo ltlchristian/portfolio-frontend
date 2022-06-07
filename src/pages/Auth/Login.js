@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthProvider";
 import services from "../../services";
+import "./Auth.css";
 
-function LoginPage({ setConnected }) {
+function LoginPage() {
+  const { setConnected } = useAuth();
   const [body, setBody] = useState({
     email: "",
     password: "",
@@ -28,7 +31,7 @@ function LoginPage({ setConnected }) {
         const { jwt } = result;
         localStorage.setItem("jwt", jwt);
         setConnected(true);
-        navigate("/");
+        navigate("/project");
       })
       .catch((err) => {
         console.log(err);
@@ -37,24 +40,25 @@ function LoginPage({ setConnected }) {
   }
 
   return (
-    <div>
-      <h1>Login</h1> 
-      <Container>
-        <Form onSubmit={handleSubmitLogin} onChange={handleChangeInput} >
-            <Form.Group className="mb-3" controlId="email">
-            <Form.Label>email</Form.Label>
-            <Form.Control type="email" placeholder="test@test.com" name="email" required/>
-            </Form.Group>
+    <Container className="login">
+      <Row className="justify-content-center m-3">
+        <Col className="text-center " md="auto">
+          <Form onSubmit={handleSubmitLogin} onChange={handleChangeInput} >
+              <Form.Group className="mb-3" controlId="email">
+              <Form.Label>email</Form.Label>
+              <Form.Control type="email" placeholder="test@test.com" name="email" required/>
+              </Form.Group>
 
-            <Form.Group className="mb-3" controlId="password">
-            <Form.Label>password</Form.Label>
-            <Form.Control type="password" placeholder="password" name="password" required/>
-            </Form.Group>
+              <Form.Group className="mb-3" controlId="password">
+              <Form.Label>password</Form.Label>
+              <Form.Control type="password" placeholder="password" name="password" required/>
+              </Form.Group>
 
-            <Button variant="primary" type="submit">Se connecter</Button>
-        </Form>
-      </Container>      
-    </div>
+              <Button variant="primary" type="submit">Se connecter</Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

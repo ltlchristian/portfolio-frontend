@@ -21,7 +21,6 @@ const services = {
   },
 
   getProjects(title) {
-    console.log(title);
     return base.get(`/projects?title=${title}`).then((res) => res.data);
   },
 
@@ -42,19 +41,6 @@ const services = {
       .then((res) => res.data);
   },
 
-  getCarouselImg() {
-    return base.get(`/carouselimgs`).then((res) => res.data);
-  },
-
-  createCarousel(body) {
-    const token = localStorage.getItem("jwt");
-    return base
-      .post("/carouselimgs", body, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => res.data);
-  },
-
   getTechnos() {
     return base.get(`/technos`).then((res) => res.data);
   },
@@ -69,11 +55,33 @@ const services = {
   },
 
   searchByTitle(title) {
-    console.log(title);
     if (title === "") {
       title = "All";
     }
     return base.get(`/projects/search/${title}`).then((res) => res.data);
+  },
+
+  deleteProject(idProject) {
+    const token = localStorage.getItem("jwt");
+    return base
+      .delete(`/projects/${idProject}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => res.data)
+      .catch((err) => {
+        const { data, status } = err.response;
+        const response = { data, status };
+        return response;
+      });
+  },
+
+  updateProject(idProject, body) {
+    const token = localStorage.getItem("jwt");
+    return base
+      .post(`/projects/${idProject}`, body, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => res.data);
   },
 };
 

@@ -12,7 +12,6 @@ export default function ProjectList() {
     services
       .getProjects(searchTitle)
       .then((result) => {
-        console.log(result);
         setProjects(result);
       })
       .catch((err) => {
@@ -37,8 +36,7 @@ export default function ProjectList() {
   }, []);
 
   return (
-    <Container>
-      <h2>Les projets</h2>
+    <Container className="porfolio">
 
       <nav className="navbar navbar-light bg-light">
         <div className="container-fluid">
@@ -51,7 +49,7 @@ export default function ProjectList() {
               placeholder="Un titre"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-primary" type="submit">
               Chercher
             </button>
           </form>
@@ -60,7 +58,7 @@ export default function ProjectList() {
 
       <Row>
         {projects.map((project) => (
-          <Project key={project._id} {...project} />
+          <Project key={project._id} {...project}>{ project.content }</Project>
         ))}
       </Row>
     </Container>

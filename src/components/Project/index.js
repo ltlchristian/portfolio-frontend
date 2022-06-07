@@ -2,23 +2,30 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge, Button, Card, Col } from "react-bootstrap";
+import GitHubIcon from '@mui/icons-material/GitHub';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { useAuth } from "../../AuthProvider";
+import { useNavigate } from "react-router-dom";
 import services from "../../services";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import("./Project.css");
 
 export default function Project(project) {
-  const [likes, setLikes] = useState(project.likes);
+  const { connected, disconnect } = useAuth();
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   function isHttpImage(image) {
     return image && image.startsWith("http");
   }
 
-  const addLike = (idProject) => {
-    console.log("==> addLike", idProject);
+  const removeProject = (idProject) => {
     services
-      .addLikes(idProject)
+      .deleteProject(idProject)
       .then((response) => {
-        console.log(response);
-        setLikes(response.likes);
+        setOpen(true);
+        navigate(0);
       })
       .catch(console.log);
   };
@@ -33,35 +40,36 @@ export default function Project(project) {
         )}
         <Card.Body>
           <Card.Title>{project.title}</Card.Title>
-          <p>
+          <div>
             {project.techno.map((techno) => (
               <span
                 key={techno._id}
-                className="badge rounded-pill bg-info text-dark"
+                className="badge rounded-pill bg-info text-dark m-1"
               >
                 {techno.label}
               </span>
             ))}
-          </p>
-          <h5>
-            Likes: <Badge bg="secondary">{likes}</Badge>
-          </h5>
+          </div>
           <Card.Text>{project.summary}</Card.Text>
-          <p>
+          {project.lien_github && <div>
             <a href={project.lien_github} target="_blank">
               <i className="fa-brands fa-github-square github"></i>
             </a>
-          </p>
-          <Button variant="primary">
-            <Link className="boutonvoir" to={`/project/${project._id}`}>
-              VOIR
-            </Link>
-          </Button>
-          <Button onClick={() => addLike(project._id)} variant="success">
-            LIKE
-          </Button>
+          </div>}
+          {project.lien_web && <div>
+            <a href={project.lien_web} target="_blank">
+            <VisibilityIcon/>
+            </a>
+          </div>}
+          <Link to={`/project/${project._id}`}><Button variant="outline-success">{connected ? "Editer" : "Détails"}</Button></Link>
+          {connected && <Button onClick={() => removeProject(project._id)} variant="outline-danger">Supprimer</Button>}
         </Card.Body>
       </Card>
+      <Snackbar open={open} autoHideDuration={2000} onClose={() => setOpen(false)}>
+        <Alert variant="filled" severity="success">
+          {`Le projet ${project.title} a été supprimé`}
+        </Alert>
+      </Snackbar>
     </Col>
   );
 }

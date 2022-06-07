@@ -9,7 +9,6 @@ const Footer = () => {
     services
       .getInfos()
       .then((response) => {
-        console.log(response);
         setInfos(response);
       })
       .catch(console.log);

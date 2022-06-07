@@ -7,6 +7,11 @@ export default function CreateProject() {
     const [body, setBody] = useState({
         title: "",
         summary: "",
+        image: "",
+        lien_github: "",
+        lien_web: "",
+        content: "",
+        techno: [],        
     });
     const [technos, setTechnos] = useState([]);
     const [checkTechnos, setCheckTechnos] = useState([]);
@@ -20,13 +25,11 @@ export default function CreateProject() {
     }
     
     function handleFormChange(event) {
-        console.log(event);
         const name = event.target.name; // title
         const value = event.target.value; // toto@toto.com
         if (!name.startsWith('techno')) {
           updateBody(name, value);
         } else {
-          console.log(event.target.checked);
           if (event.target.checked) {
             const newTechnos = [...technos].concat(value);
             setTechnos(newTechnos);
@@ -40,14 +43,11 @@ export default function CreateProject() {
             setTechnos(newTechnos);
             setBody({ ...body, techno: newTechnos });
           }
-          console.log(technos);
         }
     }
     
     function handleSubmitSignup(event) {
         event.preventDefault();
-        console.log(body);
-
         services
           .createProject(body)
           .then(() => navigate("/"))
@@ -58,14 +58,13 @@ export default function CreateProject() {
         services
           .getTechnos()
           .then((response) => {
-            console.log(response);
             setCheckTechnos(response);
           })
           .catch(console.log);
     }, []);
 
   return (
-    <Container>
+    <Container className="create-project">
         <Form onSubmit={handleSubmitSignup} onChange={handleFormChange} >
             <Form.Group className="mb-3" controlId="title">
             <Form.Label>Titre du projet</Form.Label>
@@ -78,14 +77,6 @@ export default function CreateProject() {
                 <Form.Check type="checkbox" id="techno1" value={techno._id} name={`techno${techno._id}`} label={techno.label} />
               ))}
             </Form.Group>
-
-            {/*<Form.Group className="mb-3" controlId="technos">
-              <Form.Label>Technos utilisées</Form.Label>
-              <Form.Check type="checkbox" id="techno1" value="6267e689d4cfc97249c80a18" name="techno1" label="HTML" />
-              <Form.Check type="checkbox" id="techno2" value="6267e69fd4cfc97249c80a1c" name="techno2" label="REACT" />
-              <Form.Check type="checkbox" id="techno3" value="6267e696d4cfc97249c80a1a" name="techno3" label="JAVASCRIPT" />
-              <Form.Check type="checkbox" id="techno4" value="6267e6a5d4cfc97249c80a1e" name="techno4" label="MERN" />
-          </Form.Group>*/}
 
             <Form.Group className="mb-3" controlId="summary">
             <Form.Label>Résumé du projet</Form.Label>
@@ -101,25 +92,19 @@ export default function CreateProject() {
             <Form.Label>Lien github</Form.Label>
             <Form.Control type="text" placeholder="Exemple: https://github.com/A-Lari/frontend-portfolio" name="lien_github"/>
             </Form.Group>
-  
+
+            <Form.Group className="mb-3" controlId="lien_web">
+            <Form.Label>Lien web</Form.Label>
+            <Form.Control type="text" placeholder="Exemple: https://livetag-frontend.osc-fr1.scalingo.io/" name="lien_web"/>
+            </Form.Group>
+            
             <Form.Group className="mb-3" controlId="content">
             <Form.Label>Contenu du projet</Form.Label>
             <Form.Control type="text" placeholder="Contenu du projet" name="content"/>
             </Form.Group>
 
-            <Button variant="primary" type="submit">Enregistrer</Button>
+            <Button variant="outline-success" type="submit">Enregistrer</Button>
         </Form>
     </Container>
   )
 }
-
-/*
-  title: String,
-  summary: String,
-  image: String,
-  lien_github: String,
-  content: String,
-  techno: [],
-  comment: [],
-  likes: Number,
- */ 
