@@ -9,6 +9,7 @@ export default function CreateProject() {
         summary: "",
         image: "",
         lien_github: "",
+        lien_github_back: "",
         lien_web: "",
         content: "",
         techno: [],        
@@ -90,12 +91,17 @@ export default function CreateProject() {
 
             <Form.Group className="mb-3" controlId="lien_github">
             <Form.Label>Lien github</Form.Label>
-            <Form.Control type="text" placeholder="Exemple: https://github.com/A-Lari/frontend-portfolio" name="lien_github"/>
+            <Form.Control type="text" placeholder="Exemple: https://github.com/ltlchristian" name="lien_github"/>
             </Form.Group>
 
+            <Form.Group className="mb-3" controlId="lien_github_back">
+            <Form.Label>Lien github back</Form.Label>
+            <Form.Control type="text" placeholder="Exemple: https://github.com/ltlchristian" name="lien_github_back"/>
+            </Form.Group>
+            
             <Form.Group className="mb-3" controlId="lien_web">
             <Form.Label>Lien web</Form.Label>
-            <Form.Control type="text" placeholder="Exemple: https://livetag-frontend.osc-fr1.scalingo.io/" name="lien_web"/>
+            <Form.Control type="text" placeholder="Exemple: https://portfolio-frontend.osc-fr1.scalingo.io" name="lien_web"/>
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="content">

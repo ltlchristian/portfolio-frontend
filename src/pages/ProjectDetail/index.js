@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Badge, Button, Card} from 'react-bootstrap';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import parse from 'html-react-parser';
 import services from "../../services";
 import "./ProjectDetail.css";
@@ -47,9 +48,24 @@ export default function ProjectDetail() {
             <Card.Text>
               { project.summary }
             </Card.Text>
-            <div>
-              <a href={project.lien_github} target="_blank"><i className="fa-brands fa-github-square github"></i></a>
-            </div>
+            {project.lien_github && !project.lien_github_back && <div>
+              <a href={project.lien_github} target="_blank">
+                <i className="fa-brands fa-github-square github"></i>
+              </a>
+            </div>}
+            {project.lien_github && project.lien_github_back && <div>
+              <a href={project.lien_github} target="_blank">
+                <i className="fa-brands fa-github-square github"></i>
+              </a>            
+              <a href={project.lien_github_back} target="_blank">
+                <i className="fa-brands fa-github-square github"></i>
+              </a>
+            </div>}     
+            {project.lien_web && <div>
+              <a href={project.lien_web} target="_blank">
+              <VisibilityIcon/>
+              </a>
+            </div>}
             {parse(content)}
             <hr/>
             <Button variant="outline-secondary" onClick={() => navigate("/project")}>Retour</Button>

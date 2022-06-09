@@ -51,11 +51,19 @@ export default function Project(project) {
             ))}
           </div>
           <Card.Text>{project.summary}</Card.Text>
-          {project.lien_github && <div>
+          {project.lien_github && !project.lien_github_back && <div>
             <a href={project.lien_github} target="_blank">
               <i className="fa-brands fa-github-square github"></i>
             </a>
           </div>}
+          {project.lien_github && project.lien_github_back && <div>
+            <a href={project.lien_github} target="_blank">
+              <i className="fa-brands fa-github-square github"></i>
+            </a>            
+            <a href={project.lien_github_back} target="_blank">
+              <i className="fa-brands fa-github-square github"></i>
+            </a>
+          </div>}     
           {project.lien_web && <div>
             <a href={project.lien_web} target="_blank">
             <VisibilityIcon/>

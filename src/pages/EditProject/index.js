@@ -11,6 +11,7 @@ export default function EditProject() {
         summary: "",
         image: "",
         lien_github: "",
+        lien_github_back: "", 
         lien_web: "",
         content: "",
         techno: [],
@@ -87,6 +88,7 @@ export default function EditProject() {
           summary: dbProject.summary,
           image: dbProject.image,
           lien_github: dbProject.lien_github,
+          lien_github_back: dbProject.lien_github_back,
           lien_web: dbProject.lien_web,
           content: dbProject.content,
           techno: newActivities,
@@ -154,9 +156,20 @@ export default function EditProject() {
             <Form.Label>Lien github</Form.Label>
             <Form.Control 
               type="text" 
-              placeholder="Exemple: https://github.com/A-Lari/frontend-portfolio" 
+              placeholder="Exemple: https://github.com/ltlchristian" 
               name="lien_github" 
               value={body.lien_github}
+              onChange={handleFormChange}
+            />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="lien_github_back">
+            <Form.Label>Lien github back</Form.Label>
+            <Form.Control 
+              type="text" 
+              placeholder="Exemple: https://github.com/ltlchristian" 
+              name="lien_github_back" 
+              value={body.lien_github_back}
               onChange={handleFormChange}
             />
             </Form.Group>
@@ -165,7 +178,7 @@ export default function EditProject() {
             <Form.Label>Lien web</Form.Label>
             <Form.Control 
               type="text" 
-              placeholder="Exemple: https://livetag-frontend.osc-fr1.scalingo.io/" 
+              placeholder="Exemple: https://portfolio-frontend.osc-fr1.scalingo.io" 
               name="lien_web" 
               value={body.lien_web}
               onChange={handleFormChange}

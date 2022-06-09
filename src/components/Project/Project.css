@@ -10,3 +10,8 @@ Button {
   text-decoration: none;
   color: white;
 }
+
+.card-body a {
+  text-decoration: none;
+  margin-left: 5px;
+}
