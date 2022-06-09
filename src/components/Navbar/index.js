@@ -18,7 +18,7 @@ export default function NavBar() {
         {connected && <Link className="project-link" to="/admin">Admin</Link>}
         {connected && <a className="project-link" href="#" onClick={disconnect}>Déconnexion</a>}
         {!connected && <Link className="project-link" to="/login">Connexion</Link>}
-        {!connected && <Link className="project-link" to="/signup">Inscription</Link>}
+        {/*!connected && <Link className="project-link" to="/signup">Inscription</Link>*/}
       </div>
 
       {/*<nav class="global-container navbar fixed-top navbar-light bg-light justify-content-center border-bottom shadow-sm">

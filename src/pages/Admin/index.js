@@ -44,9 +44,9 @@ function Admin() {
   function handleSubmitSite(event) {
     event.preventDefault();
 
-    const { presentation_titre, presentation_sum } = presentation;
+    const { presentation_titre, presentation_sum, footer } = presentation;
 
-    const updatedSite = { presentation_titre, presentation_sum };
+    const updatedSite = { presentation_titre, presentation_sum, footer };
     services
       .updateSite(presentation._id, updatedSite)
       .catch(() => alert("Une erreur pendant la mise à jour des infos du site"));
@@ -62,32 +62,33 @@ function Admin() {
   }, []);
 
   return (
-    <div>
-      <h1>Admin</h1>
-      <Container>
-        <h2>Technos</h2>
-        <Form onSubmit={handleSubmitTechnos}>
-            <Form.Group className="mb-3" controlId="label">
-              <Form.Label>label</Form.Label>
-              <Form.Control type="text" placeholder="libellé techno" name="label" onChange={handleFormChangeTechnos} required/>
-            </Form.Group>
-            <Button variant="primary" type="submit">Ajouter</Button>
-        </Form>
-        <hr/>
-        <h2>Site</h2>
-        <Form onSubmit={handleSubmitSite}>
-            <Form.Group className="mb-3" controlId="presentation_titre">
-              <Form.Label>presentation_titre</Form.Label>
-              <Form.Control type="text" placeholder="un titre" name="presentation_titre" value={presentation.presentation_titre} onChange={handleFormChangeSite} required/>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="presentation_sum">
-              <Form.Label>presentation_sum</Form.Label>
-              <Form.Control type="text" placeholder="un texte" name="presentation_sum" value={presentation.presentation_sum} onChange={handleFormChangeSite} required/>
-            </Form.Group>            
-            <Button variant="primary" type="submit">Modifier</Button>
-        </Form>
-      </Container>
-    </div>
+    <Container className="admin">
+      <h2>Technos</h2>
+      <Form onSubmit={handleSubmitTechnos}>
+          <Form.Group className="mb-3" controlId="label">
+            <Form.Label>label</Form.Label>
+            <Form.Control type="text" placeholder="libellé techno" name="label" onChange={handleFormChangeTechnos} required/>
+          </Form.Group>
+          <Button variant="primary" type="submit">Ajouter</Button>
+      </Form>
+      <hr/>
+      <h2>Site</h2>
+      <Form onSubmit={handleSubmitSite}>
+          <Form.Group className="mb-3" controlId="presentation_titre">
+            <Form.Label>presentation_titre</Form.Label>
+            <Form.Control type="text" placeholder="un titre" name="presentation_titre" value={presentation.presentation_titre} onChange={handleFormChangeSite} required/>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="presentation_sum">
+            <Form.Label>presentation_sum</Form.Label>
+            <Form.Control type="text" placeholder="un texte" name="presentation_sum" value={presentation.presentation_sum} onChange={handleFormChangeSite} required/>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="footer">
+            <Form.Label>footer</Form.Label>
+            <Form.Control type="text" placeholder="un texte" name="footer" value={presentation.footer} onChange={handleFormChangeSite} required/>
+          </Form.Group>            
+          <Button variant="primary" type="submit">Modifier</Button>
+      </Form>
+  </Container>
   );
 }
 
